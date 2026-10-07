@@ -1,0 +1,10 @@
+'FormalProof.Research003.RS42Counterexample90.independenceCount_eq_coefficient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+`#`-commands, such as '#print', are not allowed in 'Mathlib' [linter.hashCommand]
+'FormalProof.Research003.RS42Counterexample90.explicit_implies_evenBetaOne90' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+`#`-commands, such as '#print', are not allowed in 'Mathlib' [linter.hashCommand]
+'FormalProof.Research003.RS42Counterexample90.fixed_indices' depends on axioms: [propext, Classical.choice, Quot.sound]
+`#`-commands, such as '#print', are not allowed in 'Mathlib' [linter.hashCommand]

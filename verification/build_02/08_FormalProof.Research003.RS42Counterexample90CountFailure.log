@@ -1,0 +1,21 @@
+'FormalProof.Research003.RS42Counterexample90.graph90_coefficient_eq_polynomial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_coefficient43' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_coefficient44' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_coefficient45' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_count_failure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_count_signed_difference' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_mathlib_count_failure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -1,0 +1,180 @@
+{
+  "en": {
+    "source_sha256": "d2b582dc55feb33ddd45694940dcd0840aeeb044a6de8cbd2687e3f82ecbfcc9",
+    "pdf_sha256": "4febc8aa6ffd73abeab435421af5d37418f5d4416397fb4c68293fe72cf6734f",
+    "pages": 10,
+    "metadata": {
+      "/Creator": "LaTeX with hyperref",
+      "/Title": "Trees with perfect matchings that disprove a conjecture of Ramos and Sun",
+      "/Author": "Heshun Fan",
+      "/Keywords": "Independence polynomial, tree, log-concavity, perfect matching",
+      "/Producer": "xdvipdfmx (0.1)",
+      "/CreationDate": "D:20261007025007-00'00'"
+    },
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 2584,
+        "links": [
+          "mailto:U202410055@hust.edu.cn"
+        ]
+      },
+      {
+        "page": 2,
+        "text_characters": 3029,
+        "links": []
+      },
+      {
+        "page": 3,
+        "text_characters": 3633,
+        "links": []
+      },
+      {
+        "page": 4,
+        "text_characters": 2460,
+        "links": []
+      },
+      {
+        "page": 5,
+        "text_characters": 2414,
+        "links": []
+      },
+      {
+        "page": 6,
+        "text_characters": 2036,
+        "links": []
+      },
+      {
+        "page": 7,
+        "text_characters": 3124,
+        "links": []
+      },
+      {
+        "page": 8,
+        "text_characters": 2806,
+        "links": []
+      },
+      {
+        "page": 9,
+        "text_characters": 2556,
+        "links": [
+          "https://github.com/alok/breakthroughs/tree/5365082217b0aa641fdc753c4d910aded8c4c1b0/2026-07-24-erdos-attack/leanm/ErdosattackM",
+          "https://github.com/alok/breakthroughs/tree/5365082217b0aa641fdc753c4d910aded8c4c1b0/2026-07-24-erdos-attack/leanm/ErdosattackM",
+          "https://arxiv.org/abs/2511.00334v1",
+          "https://doi.org/10.48550/arXiv.2511.00334",
+          "https://doi.org/10.48550/arXiv.2511.00334",
+          "https://doi.org/10.1007/s00373-026-03054-4",
+          "https://github.com/BrettRey/erdos-problem-993/blob/f5d9a0700b803d93cfbc96dc8c0de6c1e4bfa1e2/scratch_d13_matching_lift_probe_20260711.py",
+          "https://github.com/BrettRey/erdos-problem-993/blob/f5d9a0700b803d93cfbc96dc8c0de6c1e4bfa1e2/scratch_d13_matching_lift_probe_20260711.py",
+          "https://arxiv.org/abs/2609.20961v1",
+          "https://doi.org/10.48550/arXiv.2609.20961",
+          "https://doi.org/10.48550/arXiv.2609.20961",
+          "https://arxiv.org/abs/2502.10654v2",
+          "https://doi.org/10.48550/arXiv.2502.10654",
+          "https://doi.org/10.26493/1855-3974.3207.2ad",
+          "https://doi.org/10.26493/1855-3974.3207.2ad"
+        ]
+      },
+      {
+        "page": 10,
+        "text_characters": 167,
+        "links": [
+          "https://arxiv.org/abs/2510.18826v2",
+          "https://doi.org/10.48550/arXiv.2510.18826"
+        ]
+      }
+    ],
+    "log_diagnostics": [
+      "Package inputenc Warning: inputenc package ignored with utf8 based engines.",
+      "Underfull \\hbox (badness 10000) in paragraph at lines 729--733"
+    ]
+  },
+  "zh": {
+    "source_sha256": "4c9add0483be2b7ae2388e6e71f3329a3185469b74904d680573f6d23093edbe",
+    "pdf_sha256": "d628ef6f99713bd822676b67f2afb9801a7954922a806ca47818e991f6888a53",
+    "pages": 10,
+    "metadata": {
+      "/Creator": "LaTeX with hyperref",
+      "/Title": "具有完美匹配且反驳 Ramos 和 Sun 猜想的树",
+      "/Author": "Heshun Fan",
+      "/Keywords": "独立多项式, 树, 对数凹性, 完美匹配",
+      "/Producer": "xdvipdfmx (0.1)",
+      "/CreationDate": "D:20261007025007-00'00'"
+    },
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 638,
+        "links": [
+          "mailto:U202410055@hust.edu.cn"
+        ]
+      },
+      {
+        "page": 2,
+        "text_characters": 793,
+        "links": []
+      },
+      {
+        "page": 3,
+        "text_characters": 936,
+        "links": []
+      },
+      {
+        "page": 4,
+        "text_characters": 567,
+        "links": []
+      },
+      {
+        "page": 5,
+        "text_characters": 912,
+        "links": []
+      },
+      {
+        "page": 6,
+        "text_characters": 732,
+        "links": []
+      },
+      {
+        "page": 7,
+        "text_characters": 600,
+        "links": []
+      },
+      {
+        "page": 8,
+        "text_characters": 1072,
+        "links": []
+      },
+      {
+        "page": 9,
+        "text_characters": 1207,
+        "links": [
+          "https://github.com/alok/breakthroughs/tree/5365082217b0aa641fdc753c4d910aded8c4c1b0/2026-07-24-erdos-attack/leanm/ErdosattackM",
+          "https://github.com/alok/breakthroughs/tree/5365082217b0aa641fdc753c4d910aded8c4c1b0/2026-07-24-erdos-attack/leanm/ErdosattackM",
+          "https://arxiv.org/abs/2511.00334v1",
+          "https://doi.org/10.48550/arXiv.2511.00334",
+          "https://doi.org/10.48550/arXiv.2511.00334",
+          "https://doi.org/10.1007/s00373-026-03054-4",
+          "https://github.com/BrettRey/erdos-problem-993/blob/f5d9a0700b803d93cfbc96dc8c0de6c1e4bfa1e2/scratch_d13_matching_lift_probe_20260711.py",
+          "https://github.com/BrettRey/erdos-problem-993/blob/f5d9a0700b803d93cfbc96dc8c0de6c1e4bfa1e2/scratch_d13_matching_lift_probe_20260711.py"
+        ]
+      },
+      {
+        "page": 10,
+        "text_characters": 754,
+        "links": [
+          "https://arxiv.org/abs/2609.20961v1",
+          "https://doi.org/10.48550/arXiv.2609.20961",
+          "https://doi.org/10.48550/arXiv.2609.20961",
+          "https://arxiv.org/abs/2502.10654v2",
+          "https://doi.org/10.48550/arXiv.2502.10654",
+          "https://doi.org/10.26493/1855-3974.3207.2ad",
+          "https://arxiv.org/abs/2510.18826v2",
+          "https://doi.org/10.48550/arXiv.2510.18826"
+        ]
+      }
+    ],
+    "log_diagnostics": [
+      "Underfull \\hbox (badness 6332) in paragraph at lines 623--627"
+    ]
+  }
+}

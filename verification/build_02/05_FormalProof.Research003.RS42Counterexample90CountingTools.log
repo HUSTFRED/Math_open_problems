@@ -1,0 +1,12 @@
+'FormalProof.Research003.RS42Counterexample90.card_weighted_sum_eq_coeff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.weightedChoicePolynomial_eq_sum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.card_weighted_choices_eq_coeff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.core_leaf_count_eq_coeff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

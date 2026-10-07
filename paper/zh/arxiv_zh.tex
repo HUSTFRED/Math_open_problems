@@ -1,0 +1,642 @@
+% !TeX program = xelatex
+% 独立源文件：arxiv_zh.tex；图与参考文献均内嵌。
+\documentclass[UTF8,11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=1in]{geometry}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tikz}
+\usepackage{microtype}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\theoremstyle{remark}
+\newtheorem{example}[theorem]{例}
+\renewcommand{\proofname}{证明}
+\numberwithin{equation}{section}
+\hypersetup{
+  pdftitle={具有完美匹配且反驳 Ramos 和 Sun 猜想的树},
+  pdfauthor={Heshun Fan},
+  pdfkeywords={独立多项式, 树, 对数凹性, 完美匹配},
+  pdfdisplaydoctitle=true
+}
+
+\title{具有完美匹配且反驳 Ramos 和 Sun 猜想的树}
+\author{Heshun Fan\\
+{\small 华中科技大学数学与统计学院}\\
+{\small 中国武汉 430074}\\
+{\small \href{mailto:U202410055@hust.edu.cn}{U202410055@hust.edu.cn}}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+我们显式构造一族具有完美匹配的树，其独立集序列在独立数减一的位置不满足对数凹性。
+对每个整数 $p\geq6$，所构造的树有 $14p+6$ 个顶点，独立数为 $m=7p+3$，
+而其独立集计数满足 $a_{m-1}^2<a_{m-2}a_m$。
+这反驳了 Ramos 和 Sun 的猜想~4.2，该猜想根据对数凹性失效的位置预言独立数的一个下界。
+证明通过匹配对上的端点选择来编码独立集，并比较删除匹配对标签后得到的计数。
+证明还给出 $a_{m-1}^2/(a_{m-2}a_m)<49\cdot2^{-p}$。
+我们给出 90 顶点实例的精确系数，并介绍其 Lean 形式化。
+\end{abstract}
+
+\begingroup\small
+\noindent\textbf{关键词：}独立多项式；树；对数凹性；完美匹配。\par
+\noindent\textbf{2020 数学主题分类：}05C31, 05C05, 05C69, 03B35。\par
+\endgroup
+
+\section{引言}\label{sec:introduction}
+
+对有限图 $G$，以 $a_k(G)$ 表示基数为 $k$ 的独立顶点集的数目，
+以 $\alpha(G)$ 表示其独立数。独立多项式定义为
+\[
+ I_G(x)=\sum_{k=0}^{\alpha(G)}a_k(G)x^k.
+\]
+若 $a_j(G)^2\geq a_{j-1}(G)a_{j+1}(G)$，
+则称该序列在内部下标 $1\leq j<\alpha(G)$ 处具有对数凹性。
+从 $a_0(G)$ 到 $a_{\alpha(G)}(G)$ 的所有系数均为正，
+因为最大独立集的子集能够实现这一范围内的每个基数。
+因此，对数凹性蕴含单峰性。这两种形状性质推动了对树的独立多项式的研究；
+相关背景见 Ramos 和 Sun~\cite[第~2.1 节]{RamosSun2025}。
+独立集序列不满足对数凹性的树已有例子\cite{KadrawiLevit2023}。
+一个更具体的问题是：对数凹性失效的位置如何约束独立数？
+
+对阶数为 $N$ 的树 $T$，令 $h=\lfloor N/2\rfloor$。
+受计算搜索的启发，Ramos 和 Sun 在文献~\cite{RamosSun2025} 的猜想~4.2 中提出了如下蕴含：
+\begin{equation}
+ a_{h-\beta}(T)^2<a_{h-\beta-1}(T)a_{h-\beta+1}(T)
+ \quad\Longrightarrow\quad
+ \alpha(T)\geq h+\beta+1.
+ \label{eq:conjecture}
+\end{equation}
+按照他们在第~1.2 节中的约定，当 $N$ 为奇数时，将 $N/2$ 替换为其向下取整。
+该猜想未单独规定 $\beta$ 的取值范围。
+我们反驳其中 $\beta=1$ 的偶数阶情形，且所涉及的三个系数下标均处于正系数的支撑范围内。
+在这一情形下，若在 $N/2-1$ 处失效，猜想将要求 $\alpha(T)\geq N/2+2$。
+
+由二部划分可知，每棵 $N$ 阶树的独立数至少为 $\lceil N/2\rceil$。
+对于具有完美匹配的 $2m$ 阶树，每个独立集在每条匹配边上至多取一个端点，
+而二部划分的每一部分的大小均为 $m$。因此，这样的树的独立数恰为 $m$。
+我们的构造达到这一值，并在 $m-1$ 处不满足对数凹性。
+以 $\nu(G)$ 表示 $G$ 中匹配大小的最大值。
+
+\begin{theorem}\label{thm:main}
+对每个整数 $p\geq6$，从六个互异顶点 $a,b,c,d,e,f$ 及边
+\[
+ ab,\quad cd,\quad ef,\quad af,\quad cf
+\]
+出发，在 $a,c,e$ 处各连接 $p$ 条长度为二的悬挂路径，
+在 $b,d$ 处各连接 $2p$ 条这样的路径，得到 $T_p$。
+每条所接路径包含两个新顶点，且不同所接路径的新顶点彼此互异。
+则 $T_p$ 是一棵树，且满足
+\[
+ |V(T_p)|=14p+6,\qquad \nu(T_p)=\alpha(T_p)=7p+3.
+\]
+记 $m=7p+3$ 且 $a_k=a_k(T_p)$，则有
+\begin{equation}
+ a_{m-1}^2<a_{m-2}a_m.
+ \label{eq:failure}
+\end{equation}
+因此，$T_p$ 在 $\beta=1$ 时与~\eqref{eq:conjecture} 矛盾。
+\end{theorem}
+
+事实上，猜想将要求 $\alpha(T_p)\geq m+2$，而 $\alpha(T_p)=m$。
+证明还表明 $a_{m-1}^2/(a_{m-2}a_m)<49\cdot2^{-p}$，
+因此该比值沿着这一族趋于零；见推论~\ref{cor:ratio}。
+当 $p=6$ 时，我们得到一个 90 顶点反例，其独立数为 $45$，失效下标为 $44$。
+
+除了确定独立数以外，匹配还起到另一个作用。
+一个独立集使某些匹配对为空，并从每个其余匹配对中选择一个端点。
+因此，次数最高的三个系数分别计数零个、一个和两个空匹配对的配置。
+连接长度为二的路径保持匹配结构，而所接路径的数量 $p$ 和 $2p$ 不同，
+使核心匹配对的两个端点选择具有不同的权重。
+让两个指定的核心匹配对为空，能够同时解除许多悬挂匹配对上的限制。
+由此得到的 $a_{m-2}$ 的下界在乘以 $a_m$ 后，
+超过所有恰有一个空匹配对的计数贡献之和的平方。
+这里只需要少数精确计数，其余贡献可以用一个共同的界来估计。
+
+\subsection{与已有构造的关系}\label{sec:related}
+
+为将已经确立的下标 $j$ 处的失效与猜想中的下界~\eqref{eq:conjecture} 比较，令 $\beta=h-j$。
+此时，猜想的结论写为
+\begin{equation}\label{eq:comparison-test}
+ \alpha+j\geq2\lfloor N/2\rfloor+1.
+\end{equation}
+以下比较针对所引文献中已经确立的具体失效下标。
+当 $j>h$ 时，这一代换给出负的 $\beta$，而不是 $\beta$ 非负的实例。
+
+Kadrawi 和 Levit~\cite[第~3--4 节]{KadrawiLevit2023} 给出两类无限族，
+推广了他们的 26 顶点例子。其所述失效满足 $\alpha=N/2+1$ 且 $j=N/2$，
+因此~\eqref{eq:comparison-test} 取等号。
+Galvin~\cite[定理~2.1]{Galvin2026} 构造树 $T_{q,t,1}$，满足
+\[
+ N=1+q+2qt,\qquad \alpha=q(t+1),\qquad j=qt+2
+\]
+其中整数参数满足 $t\leq q\leq2^{t/16}$，且 $t$ 充分大。
+此时 $\alpha+j=N+1$，从而推出~\eqref{eq:comparison-test}。
+Kadrawi--Levit 的两类树以及 Galvin 的树均满足 $\alpha>N/2$，
+这与定理~\ref{thm:main} 不同。
+
+Bautista-Ramos~\cite[定义~1 和定理~1]{BautistaRamos2025}
+构造了具有任意多个失效位置的树。以 $q$ 表示分支数，其参数为
+\[
+ N=2+q(4+6t),\qquad \alpha=1+3q(t+1),\qquad
+ j=\alpha-(2r+1),
+\]
+其中 $q\geq1$ 为固定整数，$t$ 为充分大的整数，且 $r\in\{0,\ldots,q-1\}$。
+在这一情形下，$\alpha+j-N-1=2(q-r-1)\geq0$，
+并且 $\beta=1-q+2r$ 非负当且仅当 $2r\geq q-1$。
+Bautista-Ramos、Guill\'en-Galv\'an 和 G\'omez-Salgado~\cite{BGG2026}
+研究了具有连续失效位置的有根构造及线性递推。
+他们的推论~4 对整数 $q\geq9$ 给出
+$(N,\alpha,j)=(19q+6,10q+3,10q+2)$。
+由于 $\alpha+j-N-1=q-2>0$，这些参数满足~\eqref{eq:comparison-test}，
+但给出 $\beta=1-\lceil q/2\rceil<0$。
+Galvin~\cite[第~3 节]{Galvin2026} 还报告了 Bencs 计算得到的具有多个失效位置的例子，
+但未给出这些位置的下标；因此，这些数据不能确定~\eqref{eq:comparison-test} 中的比较结果。
+
+在 2026 年 9 月的一篇预印本中，Fang、Lu、Nevo、Yao 和
+Zheng~\cite[定理~1.1--1.2]{Fang2026} 宣布了充分大的森林的单峰性，
+以及在范围 $N/5\leq j\leq17\alpha/25$ 内的严格对数凹性。
+我们的下标 $j=\alpha-1$ 满足 $\alpha\geq45$，位于这一范围之外。
+定理~\ref{thm:main} 中的局部失效并不蕴含单峰性失效。
+
+通过匹配对及定向边表示树的方式也出现在公开实现~\cite{MatchingLift} 中。
+公开的 Lean 源码~\cite{LeanWitnesses} 包含一个将有根树多项式计算
+与独立集计数联系起来的正确性定理，以及阶数分别为 $26$、$28$ 和 $29$ 的非对数凹见证。
+其中两个偶数阶见证的参数为 $(N,\alpha,j)=(26,14,13)$ 和 $(28,15,14)$，
+因此满足~\eqref{eq:comparison-test}；奇数阶见证则满足 $j=15>\lfloor29/2\rfloor$。
+本文介绍的形式化针对定理~\ref{thm:main} 的 90 顶点实例。
+
+\noindent\textbf{文章结构。}
+第~\ref{sec:proofs} 节通过匹配对上的赋值计数证明定理~\ref{thm:main}，并导出系数比值的界。
+第~\ref{sec:formalization} 节给出精确的 90 顶点实例及其形式化验证的范围。
+第~\ref{sec:discussion} 节讨论参数阈值和进一步的系数估计。
+附录~\ref{app:verification} 记录一种独立的多项式递推以及形式化源码的标识符。
+
+\noindent\textbf{约定与记号。}
+所有图均为有限简单图。路径的长度指其边数。顶点删除均指诱导删除，
+以 $N_G[v]$ 表示 $v$ 的闭邻域。
+我们约定当 $k>\alpha(G)$ 时 $a_k(G)=0$，并令 $I_{\varnothing}(x)=1$。
+
+\section{通过完美匹配计数独立集}\label{sec:proofs}
+
+我们利用完美匹配计数独立集，从而证明定理~\ref{thm:main}。
+匹配首先确定独立数；由此得到的独立集表示随后将系数比较化为匹配对所构成的有向树上的计数。
+
+\subsection{树及其匹配对}\label{sec:construction}
+
+固定整数 $p\geq6$，令 $m=7p+3$，并在证明的其余部分中简记 $a_k=a_k(T_p)$。
+六顶点核心连通且有五条边，因此是一棵树。
+连接一条带有两个新顶点的路径保持连通性和无圈性。
+所接路径共 $7p$ 条，因此所得树有 $6+14p=2m$ 个顶点。
+三条核心边 $ab,cd,ef$ 与每条所接路径的外侧边一起，构成大小为 $m$ 的完美匹配；
+见图~\ref{fig:core}。因此 $\nu(T_p)=m$。
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.1]
+\coordinate (a) at (-2,0);
+\coordinate (b) at (-2,1.6);
+\coordinate (c) at (2,0);
+\coordinate (d) at (2,1.6);
+\coordinate (e) at (0,-1.2);
+\coordinate (f) at (0,0);
+\coordinate (a1) at (-2.9,-.3);
+\coordinate (a2) at (-3.8,-.3);
+\coordinate (b1) at (-2.9,2);
+\coordinate (b2) at (-3.8,2);
+\coordinate (c1) at (2.9,-.3);
+\coordinate (c2) at (3.8,-.3);
+\coordinate (d1) at (2.9,2);
+\coordinate (d2) at (3.8,2);
+\coordinate (e1) at (0,-2);
+\coordinate (e2) at (.9,-2);
+\draw[black,line width=0.6pt,dashed] (a)--(f)--(c);
+\draw[black,line width=0.6pt,dashed] (a)--(a1) (b)--(b1) (c)--(c1) (d)--(d1) (e)--(e1);
+\draw[blue,line width=1.2pt] (a)--(b) (c)--(d) (e)--(f);
+\draw[blue,line width=1.2pt] (a1)--(a2) (b1)--(b2) (c1)--(c2) (d1)--(d2) (e1)--(e2);
+\foreach \v in {a,b,c,d,e,f,a1,a2,b1,b2,c1,c2,d1,d2,e1,e2}
+  \fill (\v) circle (1.6pt);
+\node[above right] at (a) {$a$};
+\node[above right] at (b) {$b$};
+\node[above left] at (c) {$c$};
+\node[above left] at (d) {$d$};
+\node[right] at (e) {$e$};
+\node[above] at (f) {$f$};
+\node[below] at (-3.3,-.3) {$p$ 条臂};
+\node[above] at (-3.3,2) {$2p$ 条臂};
+\node[below] at (3.3,-.3) {$p$ 条臂};
+\node[above] at (3.3,2) {$2p$ 条臂};
+\node[below] at (.5,-2) {$p$ 条臂};
+\end{tikzpicture}
+\caption{六顶点核心及每组悬挂路径中的一条代表路径。
+图中每条臂代表标注数量的互异副本。蓝色粗实线边构成完美匹配；
+黑色细虚线边为非匹配边。在 $f$ 处不连接臂。}
+\label{fig:core}
+\end{figure}
+
+将核心匹配边的端点标记为
+\[
+ (a,b)=(U_u,V_u),\quad (c,d)=(U_v,V_v),\quad
+ (e,f)=(U_z,V_z).
+\]
+沿每条所接路径延伸二部划分，以 $U$ 和 $V$ 表示其两部分。
+这样，每个匹配对都写为某个标签 $i$ 对应的 $\{U_i,V_i\}$。
+这 $m$ 个顶点 $U_i$ 构成一个独立集。
+反之，任意独立集在 $m$ 条匹配边中的每一条上至多取一个端点。
+这直接证明了 $\alpha(T_p)=m$。
+
+将每条非匹配边 $U_iV_k$ 记为匹配对标签上的有向树 $H=H_p$ 中的一条箭头 $i\to k$。
+其内部箭头为 $u\to z$ 和 $v\to z$。
+$u,v$ 各有 $p$ 个出向叶顶点和 $2p$ 个入向叶顶点，$z$ 有 $p$ 个出向叶顶点。
+这 $7p$ 个叶顶点彼此互异。
+反过来，将这棵有向树的每个顶点 $i$ 替换为边 $U_iV_i$，
+将每条箭头 $i\to k$ 替换为边 $U_iV_k$，便恰好恢复 $T_p$。
+
+\subsection{将独立集表示为匹配对上的赋值}\label{sec:assignments}
+
+我们用 $+$ 编码选择 $U_i$，用 $-$ 编码选择 $V_i$。
+未使用的匹配对则通过从 $H$ 中删除其标签来表示。
+这样，箭头恰好记录了哪些端点选择彼此不相容。
+
+对有限有向图 $K$，令 $\mathcal C(K)$ 为所有满足下述条件的赋值
+$\sigma:V(K)\to\{+,-\}$ 所成的集合：
+不存在箭头 $i\to k$ 使得 $(\sigma(i),\sigma(k))=(+,-)$。
+记 $\Omega(K)=|\mathcal C(K)|$，其中约定 $\Omega(\varnothing)=1$。
+顶点删除始终指诱导删除：一条箭头被保留当且仅当其两个端点均被保留。
+特别地，不通过已删除的顶点保留任何约束。
+
+按照空匹配对对独立集分类，可得下面的恒等式。
+其中关于叶顶点的界将同时控制所有悬挂匹配对。
+
+\begin{lemma}
+\label{lem:deletion}
+对每个整数 $0\leq r\leq m$，有
+\begin{equation}
+ a_{m-r}=\sum_{\substack{Z\subseteq V(H)\\|Z|=r}}\Omega(H-Z).
+ \label{eq:deletion}
+\end{equation}
+此外，对 $H$ 的每个叶顶点 $\ell$，均有 $\Omega(H-\ell)\leq\Omega(H)$。
+\end{lemma}
+
+\begin{proof}
+$T_p$ 的一个独立集在每个匹配对中选择零个或一个端点。
+令 $Z$ 为所有空匹配对的标签所成的集合。
+在非空匹配对上，选择 $U_i$ 时赋值 $+$，选择 $V_i$ 时赋值 $-$。
+非匹配边 $U_iV_k$ 恰好禁止其箭头 $i\to k$ 上的选择 $(+,-)$。
+因此，非空匹配对上的选择给出 $\mathcal C(H-Z)$ 的一个元素，
+且该独立集的大小为 $m-|Z|$。
+
+反之，给定 $Z$ 和 $\mathcal C(H-Z)$ 的一个元素，
+在每个 $+$ 处选择 $U_i$，在每个 $-$ 处选择 $V_i$，
+并且不选择 $Z$ 中每个匹配对的任何端点。
+没有匹配边的两个端点同时被选中。
+对于非匹配边，要么其某一端点所在的匹配对为空，要么赋值排除了被禁止的符号组合。
+因此，所选顶点集是独立集。这两个构造互为逆，证明了~\eqref{eq:deletion}。
+
+对于最后一个断言，限制映射给出从 $\mathcal C(H)$ 到 $\mathcal C(H-\ell)$ 的满射。
+事实上，设 $t$ 为 $\ell$ 的邻点。
+若箭头为 $t\to\ell$，则 $t$ 处的符号 $+$ 强制 $\ell$ 处为 $+$，
+而 $t$ 处的符号 $-$ 允许该叶顶点取任一符号。
+若箭头为 $\ell\to t$，则 $t$ 处的符号 $-$ 强制 $\ell$ 处为 $-$，
+而 $t$ 处的符号 $+$ 允许该叶顶点取任一符号。
+因此，每个赋值至少有一个延拓，且不存在其他涉及该叶顶点的约束。
+\end{proof}
+
+令
+\[
+ w_0=\Omega(H),\qquad w_x=\Omega(H-x),\qquad
+ w_{xy}=\Omega(H-\{x,y\})\quad(x\ne y).
+\]
+在这一记号下，\eqref{eq:deletion} 给出
+\begin{equation}
+ a_m=w_0,\qquad
+ a_{m-1}=\sum_{x\in V(H)}w_x,\qquad
+ a_{m-2}=\sum_{\{x,y\}\subseteq V(H)}w_{xy}.
+ \label{eq:topthree}
+\end{equation}
+最后一个和遍历所有无序二元子集。
+
+作为一个小例子，取顶点依次为 $V_1,U_1,V_2,U_2$、
+匹配边为 $U_1V_1,U_2V_2$ 的路径。
+它的匹配对标签图仅有一条箭头 $1\to2$。
+没有空匹配对时，允许的赋值为 $(+,+),(-,+),(-,-)$；
+恰有一个空匹配对时，无论哪个标签为空，都有两种选择；
+两个匹配对均为空时，有一种选择。这些计数给出 $I_{P_4}(x)=1+4x+3x^2$。
+
+\subsection{系数比较}\label{sec:comparison}
+
+令 $B=2^p$。计入悬挂叶顶点上的选择后，
+$u$ 或 $v$ 处的符号 $+$ 和 $-$ 分别具有权重 $B^2$ 和 $B$。
+例如，当 $u$ 处为 $+$ 时，其 $2p$ 个入向叶顶点可自由选择符号，
+而 $p$ 个出向叶顶点被强制取 $+$。
+当 $u$ 处为 $-$ 时，入向叶顶点被强制取 $-$，出向叶顶点则可自由选择符号。
+在 $z$ 处，符号 $+$ 和 $-$ 的权重分别为 $1$ 和 $B$。
+
+若 $z$ 处为 $+$，则 $u,v$ 处均允许两种符号；
+若 $z$ 处为 $-$，则 $u,v$ 均必须取 $-$。因此
+\begin{equation}
+ w_0=(B^2+B)^2+B^3=B^4+3B^3+B^2.
+ \label{eq:wzero}
+\end{equation}
+删除 $u$ 后，其 $3p$ 个叶顶点成为孤立点，共有 $B^3$ 种赋值。
+在剩余的 $v,z$ 系统中，$z$ 处取 $+$ 的贡献为 $B^2+B$，
+取 $-$ 的贡献为 $B^2$。交换 $u$ 与 $v$ 是保持所有箭头的自同构，因此
+\begin{equation}
+ w_u=w_v=B^3(2B^2+B)=B^4(2B+1).
+ \label{eq:wu}
+\end{equation}
+若删除 $z$，则其 $p$ 个叶顶点可自由赋值，另外两个分支相互分离。
+同时删除 $u,v$ 后，它们的 $6p$ 个叶顶点可自由赋值，仅留下 $z$ 所在的分支。因此
+\begin{equation}
+ w_z=B(B^2+B)^2=B^3(B+1)^2,\qquad
+ w_{uv}=B^6(B+1).
+ \label{eq:wzuv}
+\end{equation}
+当 $B\geq4$ 时，有 $w_0\leq2B^4$，因为 $3/B+1/B^2\leq13/16<1$。
+由引理~\ref{lem:deletion}，删除 $7p$ 个叶顶点中的任意一个后，计数均至多为 $w_0$。
+将三种内部顶点删除和 $7p$ 种叶顶点删除的计数相加，得到
+\begin{equation}
+\begin{aligned}
+ a_{m-1}
+ &\leq 2B^4(2B+1)+B^3(B+1)^2+14pB^4\\
+ &=5B^5+(4+14p)B^4+B^3.
+\end{aligned}
+\label{eq:upper}
+\end{equation}
+
+对每个整数 $p\geq6$，有
+\begin{equation}
+ 4+14p\leq \frac{3}{2}2^p.
+ \label{eq:threshold}
+\end{equation}
+归纳起点为 $88\leq96$。
+若该不等式对 $p\geq6$ 成立，则 $4+14(p+1)\leq2(4+14p)$，
+因为后一个不等式等价于 $10\leq14p$。
+这就完成了~\eqref{eq:threshold} 的归纳步骤。
+由于 $B\geq64$，由~\eqref{eq:upper} 可得
+\begin{equation}
+ a_{m-1}\leq B^5\left(\frac{13}{2}+B^{-2}\right)<7B^5.
+ \label{eq:upperfinal}
+\end{equation}
+另一方面，\eqref{eq:topthree} 中表示 $a_{m-2}$ 的非负和包含求和项 $w_{uv}$。
+因此，由~\eqref{eq:wzero} 和~\eqref{eq:wzuv} 得到
+\begin{equation}
+ a_m\geq B^4,\qquad
+ a_{m-2}\geq B^6(B+1)\geq B^7.
+ \label{eq:lower}
+\end{equation}
+由于 $49<B$，所需的严格不等式随之成立：
+\[
+ a_{m-1}^{2}<49B^{10}<B^{11}\leq a_{m-2}a_m.
+\]
+这证明了~\eqref{eq:failure} 对每个整数 $p\geq6$ 成立。
+
+为完成定理~\ref{thm:main} 的证明，取 $N=2m$、$h=m$、$j=m-1$ 和 $\beta=1$。
+此时 $j+\beta=h$，而 $\alpha(T_p)=m<m+2=h+\beta+1$。
+三个系数均为正：大小为 $m$ 的独立集 $\{U_i:i\in V(H)\}$
+具有从 $0$ 到 $m$ 的每种基数的子集。
+因此，这一严格失效确实发生在内部下标处，并与~\eqref{eq:conjecture} 矛盾。
+
+\subsection{次数最高的三个系数的比值}\label{sec:ratio}
+
+证明中所用的估计也量化了对数凹性的失效程度。
+特别地，在具有完美匹配的树中，下一个推论中的比值可以任意小。
+
+\begin{corollary}\label{cor:ratio}
+对每个整数 $p\geq6$，令 $m=7p+3$ 且 $a_k=a_k(T_p)$。则
+\begin{equation}\label{eq:ratio-bound}
+ 0<\rho_p:=\frac{a_{m-1}^2}{a_{m-2}a_m}<49\cdot2^{-p}.
+\end{equation}
+特别地，当整数参数 $p\to\infty$ 时，$\rho_p\to0$。
+\end{corollary}
+
+\begin{proof}
+由于 $\alpha(T_p)=m$，这些系数均为正。
+令 $B=2^p$，由~\eqref{eq:upperfinal} 和~\eqref{eq:lower} 得到
+\[
+ 0<\rho_p<\frac{(7B^5)^2}{B^7B^4}=\frac{49}{B}=49\cdot2^{-p}.
+\]
+该上界趋于零。
+\end{proof}
+
+\section{90 顶点反例}\label{sec:formalization}
+
+当 $p=6$ 时，定理~\ref{thm:main} 给出 $N=90$、$m=45$ 和 $j=44$。
+本节记 $a_k=a_k(T_6)$。
+我们显式计算其次数最高的三个系数，然后介绍这一固定实例的形式化验证。
+
+\subsection{精确系数}
+
+允许每个匹配对为空、选择其 $U$ 端点或选择其 $V$ 端点，
+并给每个被选择的端点赋予权重 $x$。令
+\begin{equation}\label{eq:local-polynomials}
+\begin{aligned}
+ A&=1+2x,\qquad C=1+x,\\
+ W&=A^{18}+xA^{12}C^6+xA^6C^{12},\\
+ R&=A^{18}+xA^6C^{12}.
+\end{aligned}
+\end{equation}
+可自由选择状态的叶匹配对贡献 $A$，而一个端点被禁止选择的叶匹配对贡献 $C$。
+对 $u$ 或 $v$，$W$ 的三项依次对应空状态、$+$ 状态和 $-$ 状态。
+多项式 $R$ 排除了 $+$ 状态。
+若 $z$ 为空或取符号 $+$，则它对 $u,v$ 不施加限制；
+这两种情形分别贡献 $A^6W^2$ 和 $xC^6W^2$。
+若 $z$ 取符号 $-$，则 $u$ 和 $v$ 的 $+$ 状态均被禁止，从而贡献 $xA^6R^2$。因此
+\begin{equation}\label{eq:polynomial90}
+ I_{T_6}(x)=(A^6+xC^6)W^2+xA^6R^2.
+\end{equation}
+从~\eqref{eq:polynomial90} 中提取系数，得到
+\begin{equation}
+\begin{aligned}
+ a_{43}&=4\,761\,097\,500\,672,\\
+ a_{44}&=5\,965\,496\,320,\\
+ a_{45}&=17\,567\,744,
+\end{aligned}
+\label{eq:instance}
+\end{equation}
+从而
+\begin{equation}\label{eq:instance-difference}
+ a_{44}^{2}-a_{43}a_{45}=-48\,054\,595\,706\,911\,981\,568<0.
+\end{equation}
+由定理~\ref{thm:main}，独立数为 $45$，
+而猜想在 $N=90$、$h=45$、$\beta=1$ 时要求独立数至少为 $47$。
+
+\subsection{固定实例的形式化验证}
+
+该固定图已在 Lean 中形式化为类型为 \texttt{SimpleGraph (Fin 90)} 的 \nolinkurl{graph90}。
+形式化证明了该图是一棵独立数为 $45$ 的树。
+其计数论证在独立顶点集与匹配对上状态 $0,+,-$ 的合法赋值之间建立了保持大小的双射。
+状态 $0$ 表示匹配对为空，另外两个状态则选择其 $U$ 或 $V$ 端点。
+将三个核心匹配对与 42 个悬挂匹配对分离后，多项式计算归结为 27 种核心状态。
+
+定理 \nolinkurl{graph90_coefficient_eq_polynomial} 证明，
+对每个非负整数 $k$，\eqref{eq:polynomial90} 右侧的 $x^k$ 的系数
+等于 \nolinkurl{graph90} 中大小为 $k$ 的独立顶点集的数目。
+最终结果确立了~\eqref{eq:instance}、树结构、独立数 $45$，
+以及对~\eqref{eq:conjecture} 的 90 顶点、$\beta=1$ 实例的否定。
+第~\ref{sec:comparison} 节中对全部参数的估计由本文的组合论证证明；形式化开发覆盖 $p=6$。
+附录~\ref{app:formal-record} 指明其源码文件和验证记录。
+
+\section{进一步的问题}\label{sec:discussion}
+
+定理~\ref{thm:main} 表明，即使对具有完美匹配且独立数恰为阶数一半的树，猜想中的下界也不成立。
+证明揭示了这一构造的一个有用特点：仅贡献 $w_{uv}$ 就足以给出 $a_{m-2}$ 的下界，
+而为了给 $a_{m-1}$ 建立上界，必须控制每一种单匹配对删除。
+这启发我们考察其他由匹配对构成的定向树，研究能否确立相同的删除计数不平衡。
+
+条件 $p\geq6$ 保证了~\eqref{eq:threshold} 和 $2^p>49$。
+这是本文所用估计的一个充分阈值。
+确定这一特定族违反~\eqref{eq:conjecture} 的最小参数，需要更精确的系数计算。
+这一问题不同于确定所有树中反例的最小阶数；本文不对 90 顶点实例作最小性断言。
+
+推论~\ref{cor:ratio} 给出指数递减的上界，但并未确定 $\rho_p$ 的精确渐近行为。
+为了获得更精细的估计，可以计入~\eqref{eq:topthree} 中其他的双匹配对删除项，
+并细化单匹配对删除计数之和的估计。
+这样的估计也可能有助于确定哪些悬挂路径重数的选择能产生更小的例子。
+
+\appendix
+\section{独立的系数计算与形式化记录}\label{app:verification}
+
+匹配对计数可以通过直接应用于树的递推来核验。
+我们先记录这些递推，然后给出 $T_6$ 的形式化陈述的标识符。
+
+\subsection{原树上的递推}\label{app:rooted-recurrence}
+
+对任意图 $G$ 和顶点 $v$，按照独立集是否包含 $v$ 分类，得到
+\begin{equation}\label{eq:vertex-recurrence}
+ I_G(x)=I_{G-v}(x)+xI_{G-N_G[v]}(x).
+\end{equation}
+不同连通分支中的独立选择给出乘法法则。
+一项已有记录的独立 Python 计算使用这些法则及 $I_{\varnothing}(x)=1$，
+从 $T_6$ 的固定边表恢复了~\eqref{eq:instance}。
+
+对于树，选定根后使用递推可以避免反复删除顶点。
+设 $S$ 以 $o$ 为根，以 $\operatorname{Ch}(v)$ 表示 $v$ 的子节点集合，
+并令 $S_v$ 为 $v$ 及其所有后代诱导的子树。
+分别以 $F_v^{(0)}(x)$ 和 $F_v^{(1)}(x)$ 表示 $S_v$ 中不含和包含顶点 $v$ 的独立集的生成多项式。则
+\begin{equation}\label{eq:rooted-recurrence}
+\begin{aligned}
+ F_v^{(0)}(x)
+ &=\prod_{t\in\operatorname{Ch}(v)}
+       \bigl(F_t^{(0)}(x)+F_t^{(1)}(x)\bigr),\\
+ F_v^{(1)}(x)
+ &=x\prod_{t\in\operatorname{Ch}(v)}F_t^{(0)}(x).
+\end{aligned}
+\end{equation}
+空乘积为 $1$，因此叶顶点处的初值为 $F_v^{(0)}(x)=1$ 和 $F_v^{(1)}(x)=x$。
+在根处，$I_S(x)=F_o^{(0)}(x)+F_o^{(1)}(x)$。
+事实上，不选择 $v$ 时，每个子节点均允许两种状态；而选择 $v$ 时，每个子节点都不能被选择。
+不同子节点对应的子树之间没有边，因此其选择数相乘；因子 $x$ 记录对 $v$ 的选择。
+所有这些计算均使用整数多项式运算。
+
+\subsection{形式化源码与已有核验记录}\label{app:formal-record}
+
+作者将形式化源码和验证记录保存在本地的未公开材料
+\nolinkurl{research_003_rs42_lean90_complete_20261004} 中；这些文件尚未存入公开档案库。
+以下标识符指向该材料中的陈述和文件。
+其中包含边表 \nolinkurl{graph/tree90_edges.json}，
+以及位于 \nolinkurl{lean/FormalProof/Research003/} 下的最终源码文件
+\nolinkurl{RS42Counterexample90Final.lean}。
+定理 \nolinkurl{graph90_adj_iff_fixedEdges} 确立了
+\nolinkurl{graph90} 与这一包含 89 条边的边表的对应关系。
+最终源码文件包含以下陈述：
+\begin{itemize}
+\item \nolinkurl{graph90_actual_coefficients} 证明~\eqref{eq:instance} 中的三个等式。
+\item \nolinkurl{graph90_counterexample} 综合了树结构、独立数 $45$、
+在 $44$ 处对数凹性失效，以及不满足所要求的独立数下界 $47$。
+\item \nolinkurl{exists_counterexample90} 使用满足 \texttt{T.IsNIndepSet k s}
+的有限顶点集的 \nolinkurl{Nat.card} 来陈述相应的存在性定理；
+其中 \texttt{T.IsNIndepSet k s} 表示 $s$ 在 $T$ 中独立且基数为 $k$。
+\item \nolinkurl{not_RamosSun42EvenBetaOne90} 否定~\eqref{eq:conjecture}
+中针对所有 90 顶点树、$\beta=1$ 的实例。
+\end{itemize}
+最终陈述不以尚未证明的树结构或系数断言为假设。
+
+该材料还包含 \nolinkurl{PROOF_MAP.md}、记录文件
+\nolinkurl{verification/BUILD_REPORT.md} 和
+\nolinkurl{verification/FINAL_AXIOMS.txt}，
+以及 \nolinkurl{audit/historical_reproduction/} 下的独立 Python 核验器及其输出。
+已有记录的 Linux 构建使用 Lean 4.34.0 和 mathlib 修订版
+\nolinkurl{56a9a88447f391672d7aeea117da03b6f7016b0d}，
+在全新的输出目录中，使用已锁定的标准依赖重新构建全部 12 个本地模块。
+最终结果所报告的公理依赖为 \nolinkurl{propext}、\nolinkurl{Classical.choice}
+和 \nolinkurl{Quot.sound}。
+没有加入项目特有的计数公理；可信基础包括 Lean 内核和已锁定的依赖。
+
+\section*{资助}
+本研究由作者自费完成，未获得公共、商业或非营利部门资助机构的专项资助。
+
+\section*{利益冲突声明}
+作者声明不存在可能被认为影响本文所报告工作的财务利益冲突或个人关系。
+
+\section*{稿件准备过程中生成式人工智能及人工智能辅助技术的使用声明}
+在准备本稿件的过程中，作者使用 OpenAI Codex 进行语言编辑、中英翻译，
+并辅助稿件组织和 LaTeX 排版。作者对稿件内容承担全部责任。
+
+\section*{致谢}
+作者感谢华中科技大学及其数学与统计学院提供良好的学术环境。
+作者同时感谢向茂松的指导、鼓励，以及为本研究提供工作空间。
+
+\begin{thebibliography}{99}
+
+\bibitem{LeanWitnesses}
+\nolinkurl{alok/breakthroughs},
+\emph{ErdosattackM}: \nolinkurl{Basic.lean}, \nolinkurl{Correct.lean},
+and \nolinkurl{Witnesses.lean}, source snapshot (2026).
+\par Commit: \nolinkurl{5365082217b0aa641fdc753c4d910aded8c4c1b0}.
+\par See \nolinkurl{indepPolyRT_correct} and
+\nolinkurl{headline_n26}, \nolinkurl{headline_n28}, \nolinkurl{headline_n29}.
+\par Source: \url{https://github.com/alok/breakthroughs/tree/5365082217b0aa641fdc753c4d910aded8c4c1b0/2026-07-24-erdos-attack/leanm/ErdosattackM}.
+Accessed 5 October 2026.
+
+\bibitem{BautistaRamos2025}
+C. Bautista-Ramos,
+\emph{Multiple breaks of log-concavity in the independence polynomials of trees},
+Preprint, \href{https://arxiv.org/abs/2511.00334v1}{arXiv:2511.00334v1} (2025).
+\url{https://doi.org/10.48550/arXiv.2511.00334}.
+
+\bibitem{BGG2026}
+C. Bautista-Ramos, C. Guill\'en-Galv\'an, and P. G\'omez-Salgado,
+\emph{Linear Recurrences for Non-Log-Concave Independence Polynomials
+of Trees}, Graphs and Combinatorics \textbf{42} (2026), article 59.
+\url{https://doi.org/10.1007/s00373-026-03054-4}.
+
+\bibitem{MatchingLift}
+\nolinkurl{BrettRey/erdos-problem-993},
+\emph{Matching-lift probe}, source snapshot (2026).
+\par Commit: \nolinkurl{f5d9a0700b803d93cfbc96dc8c0de6c1e4bfa1e2}.
+\par Function: \nolinkurl{lift_quotient}.
+\par Source: \url{https://github.com/BrettRey/erdos-problem-993/blob/f5d9a0700b803d93cfbc96dc8c0de6c1e4bfa1e2/scratch_d13_matching_lift_probe_20260711.py}.
+Accessed 5 October 2026.
+
+\bibitem{Fang2026}
+E. X. Fang, J. Lu, E. Nevo, Y. Yao, and H. Zheng,
+\emph{Unimodality of Independence Polynomials for Sufficiently Large Forests},
+Preprint, \href{https://arxiv.org/abs/2609.20961v1}{arXiv:2609.20961v1} (2026).
+\url{https://doi.org/10.48550/arXiv.2609.20961}.
+
+\bibitem{Galvin2026}
+D. Galvin,
+\emph{Trees with non log-concave independent set sequences},
+Preprint, \href{https://arxiv.org/abs/2502.10654v2}{arXiv:2502.10654v2} (2026).
+\url{https://doi.org/10.48550/arXiv.2502.10654}.
+
+\bibitem{KadrawiLevit2023}
+O. Kadrawi and V. E. Levit,
+\emph{The independence polynomial of trees is not always log-concave
+starting from order 26}, Ars Mathematica Contemporanea \textbf{25}(4)
+(2025), article P4.03.
+\url{https://doi.org/10.26493/1855-3974.3207.2ad}.
+
+\bibitem{RamosSun2025}
+E. Ramos and S. Sun,
+\emph{An AI enhanced approach to the tree unimodality conjecture},
+Preprint, \href{https://arxiv.org/abs/2510.18826v2}{arXiv:2510.18826v2} (2025).
+\url{https://doi.org/10.48550/arXiv.2510.18826}.
+
+\end{thebibliography}
+\end{document}

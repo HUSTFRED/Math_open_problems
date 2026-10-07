@@ -1,0 +1,21 @@
+FormalProof.Research003.RS42Counterexample90.graph90_indepNum : graph90.indepNum = 45
+`#`-commands, such as '#check', are not allowed in 'Mathlib' [linter.hashCommand]
+FormalProof.Research003.RS42Counterexample90.matching90_isPerfectMatching : matching90.IsPerfectMatching
+`#`-commands, such as '#check', are not allowed in 'Mathlib' [linter.hashCommand]
+FormalProof.Research003.RS42Counterexample90.graph90_mathlib_count_eq_stateCount (k : ℕ) :
+  Nat.card { s // graph90.IsNIndepSet k s } = Nat.card { f // legal arrow45 f ∧ (selected f).card = k }
+`#`-commands, such as '#check', are not allowed in 'Mathlib' [linter.hashCommand]
+'FormalProof.Research003.RS42Counterexample90.independent_iff_mathlib' does not depend on any axioms
+`#`-commands, such as '#print', are not allowed in 'Mathlib' [linter.hashCommand]
+'FormalProof.Research003.RS42Counterexample90.graph90_indepNum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+`#`-commands, such as '#print', are not allowed in 'Mathlib' [linter.hashCommand]
+'FormalProof.Research003.RS42Counterexample90.matching90_isPerfectMatching' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+`#`-commands, such as '#print', are not allowed in 'Mathlib' [linter.hashCommand]
+'FormalProof.Research003.RS42Counterexample90.graph90_mathlib_count_eq_stateCount' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+`#`-commands, such as '#print', are not allowed in 'Mathlib' [linter.hashCommand]

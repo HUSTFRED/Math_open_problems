@@ -1,0 +1,13 @@
+# Keep historical verification logs tracked.
+/lean/.lake/
+/lean/builds/
+**/__pycache__/
+*.pyc
+/paper/en/*.aux
+/paper/en/*.out
+/paper/en/*.log
+/paper/en/*.synctex.gz
+/paper/zh/*.aux
+/paper/zh/*.out
+/paper/zh/*.log
+/paper/zh/*.synctex.gz

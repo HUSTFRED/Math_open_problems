@@ -1,0 +1,6 @@
+'FormalProof.Research003.RS42Counterexample90.coefficient_graph90_eq_corePolynomial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.corePolynomial90_closed' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

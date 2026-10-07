@@ -1,0 +1,662 @@
+{
+  "N": 90,
+  "adjacent_coefficients": {
+    "43": 4761097500672,
+    "44": 5965496320,
+    "45": 17567744
+  },
+  "algorithm": "memoized induced vertex deletion and component factorization",
+  "alpha": 45,
+  "beta": 1,
+  "bipartition": [
+    [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      74,
+      76,
+      78,
+      80,
+      82,
+      84,
+      86,
+      88
+    ],
+    [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      43,
+      45,
+      47,
+      49,
+      51,
+      53,
+      55,
+      57,
+      59,
+      61,
+      63,
+      65,
+      67,
+      69,
+      71,
+      73,
+      75,
+      77,
+      79,
+      81,
+      83,
+      85,
+      87,
+      89
+    ]
+  ],
+  "conjectured_alpha_lower_bound": 47,
+  "edge_count": 89,
+  "explicit_RS42_counterexample": true,
+  "full_coefficients": [
+    1,
+    90,
+    3916,
+    109926,
+    2240986,
+    35405739,
+    451690547,
+    4786443926,
+    43004829390,
+    332741399909,
+    2244066627994,
+    13319144548616,
+    70111848084568,
+    329396383482143,
+    1388355716695485,
+    5272015588026557,
+    18098871688320222,
+    56330805139667047,
+    159306825980779435,
+    410083895315070717,
+    962097374082906740,
+    2058960643965441130,
+    4021244584210249302,
+    7167834268366389669,
+    11657180609263506754,
+    17284951435682133777,
+    23341171371585250217,
+    28659887479842213630,
+    31932203813085862722,
+    32199750415011335761,
+    29291229629718806724,
+    23941638929784194891,
+    17497780538089255302,
+    11366548333022974745,
+    6514648479312788200,
+    3264274944846258968,
+    1413456779478007296,
+    521056707965210864,
+    160315517837985024,
+    40055063684604928,
+    7808474198021632,
+    1114648009271040,
+    103770841843712,
+    4761097500672,
+    5965496320,
+    17567744
+  ],
+  "graph_checks": {
+    "acyclic": true,
+    "bipartite": true,
+    "connected": true,
+    "simple": true
+  },
+  "h": 45,
+  "input_sha256": "583ff666066c9a42fcf0757d8412e7a86b8696f3ea8732eecb69573c4340f12b",
+  "interpreter": {
+    "executable": "/home/heshunfan/projects/Danus/runtime/venv/bin/python3",
+    "implementation": "CPython",
+    "version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "j": 44,
+  "leaf_elimination_trace": [
+    {
+      "leaf": 6,
+      "matched_neighbor": 7
+    },
+    {
+      "leaf": 8,
+      "matched_neighbor": 9
+    },
+    {
+      "leaf": 10,
+      "matched_neighbor": 11
+    },
+    {
+      "leaf": 12,
+      "matched_neighbor": 13
+    },
+    {
+      "leaf": 14,
+      "matched_neighbor": 15
+    },
+    {
+      "leaf": 16,
+      "matched_neighbor": 17
+    },
+    {
+      "leaf": 19,
+      "matched_neighbor": 18
+    },
+    {
+      "leaf": 21,
+      "matched_neighbor": 20
+    },
+    {
+      "leaf": 23,
+      "matched_neighbor": 22
+    },
+    {
+      "leaf": 25,
+      "matched_neighbor": 24
+    },
+    {
+      "leaf": 27,
+      "matched_neighbor": 26
+    },
+    {
+      "leaf": 29,
+      "matched_neighbor": 28
+    },
+    {
+      "leaf": 31,
+      "matched_neighbor": 30
+    },
+    {
+      "leaf": 33,
+      "matched_neighbor": 32
+    },
+    {
+      "leaf": 35,
+      "matched_neighbor": 34
+    },
+    {
+      "leaf": 37,
+      "matched_neighbor": 36
+    },
+    {
+      "leaf": 39,
+      "matched_neighbor": 38
+    },
+    {
+      "leaf": 41,
+      "matched_neighbor": 40
+    },
+    {
+      "leaf": 1,
+      "matched_neighbor": 0
+    },
+    {
+      "leaf": 42,
+      "matched_neighbor": 43
+    },
+    {
+      "leaf": 44,
+      "matched_neighbor": 45
+    },
+    {
+      "leaf": 46,
+      "matched_neighbor": 47
+    },
+    {
+      "leaf": 48,
+      "matched_neighbor": 49
+    },
+    {
+      "leaf": 50,
+      "matched_neighbor": 51
+    },
+    {
+      "leaf": 52,
+      "matched_neighbor": 53
+    },
+    {
+      "leaf": 55,
+      "matched_neighbor": 54
+    },
+    {
+      "leaf": 57,
+      "matched_neighbor": 56
+    },
+    {
+      "leaf": 59,
+      "matched_neighbor": 58
+    },
+    {
+      "leaf": 61,
+      "matched_neighbor": 60
+    },
+    {
+      "leaf": 63,
+      "matched_neighbor": 62
+    },
+    {
+      "leaf": 65,
+      "matched_neighbor": 64
+    },
+    {
+      "leaf": 67,
+      "matched_neighbor": 66
+    },
+    {
+      "leaf": 69,
+      "matched_neighbor": 68
+    },
+    {
+      "leaf": 71,
+      "matched_neighbor": 70
+    },
+    {
+      "leaf": 73,
+      "matched_neighbor": 72
+    },
+    {
+      "leaf": 75,
+      "matched_neighbor": 74
+    },
+    {
+      "leaf": 77,
+      "matched_neighbor": 76
+    },
+    {
+      "leaf": 3,
+      "matched_neighbor": 2
+    },
+    {
+      "leaf": 5,
+      "matched_neighbor": 4
+    },
+    {
+      "leaf": 78,
+      "matched_neighbor": 79
+    },
+    {
+      "leaf": 80,
+      "matched_neighbor": 81
+    },
+    {
+      "leaf": 82,
+      "matched_neighbor": 83
+    },
+    {
+      "leaf": 84,
+      "matched_neighbor": 85
+    },
+    {
+      "leaf": 86,
+      "matched_neighbor": 87
+    },
+    {
+      "leaf": 88,
+      "matched_neighbor": 89
+    }
+  ],
+  "log_concavity_difference": -48054595706911981568,
+  "matching": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      8,
+      9
+    ],
+    [
+      10,
+      11
+    ],
+    [
+      12,
+      13
+    ],
+    [
+      14,
+      15
+    ],
+    [
+      16,
+      17
+    ],
+    [
+      18,
+      19
+    ],
+    [
+      20,
+      21
+    ],
+    [
+      22,
+      23
+    ],
+    [
+      24,
+      25
+    ],
+    [
+      26,
+      27
+    ],
+    [
+      28,
+      29
+    ],
+    [
+      30,
+      31
+    ],
+    [
+      32,
+      33
+    ],
+    [
+      34,
+      35
+    ],
+    [
+      36,
+      37
+    ],
+    [
+      38,
+      39
+    ],
+    [
+      40,
+      41
+    ],
+    [
+      42,
+      43
+    ],
+    [
+      44,
+      45
+    ],
+    [
+      46,
+      47
+    ],
+    [
+      48,
+      49
+    ],
+    [
+      50,
+      51
+    ],
+    [
+      52,
+      53
+    ],
+    [
+      54,
+      55
+    ],
+    [
+      56,
+      57
+    ],
+    [
+      58,
+      59
+    ],
+    [
+      60,
+      61
+    ],
+    [
+      62,
+      63
+    ],
+    [
+      64,
+      65
+    ],
+    [
+      66,
+      67
+    ],
+    [
+      68,
+      69
+    ],
+    [
+      70,
+      71
+    ],
+    [
+      72,
+      73
+    ],
+    [
+      74,
+      75
+    ],
+    [
+      76,
+      77
+    ],
+    [
+      78,
+      79
+    ],
+    [
+      80,
+      81
+    ],
+    [
+      82,
+      83
+    ],
+    [
+      84,
+      85
+    ],
+    [
+      86,
+      87
+    ],
+    [
+      88,
+      89
+    ]
+  ],
+  "maximum_independent_set": [
+    1,
+    3,
+    5,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    19,
+    21,
+    23,
+    25,
+    27,
+    29,
+    31,
+    33,
+    35,
+    37,
+    39,
+    41,
+    42,
+    44,
+    46,
+    48,
+    50,
+    52,
+    55,
+    57,
+    59,
+    61,
+    63,
+    65,
+    67,
+    69,
+    71,
+    73,
+    75,
+    77,
+    78,
+    80,
+    82,
+    84,
+    86,
+    88
+  ],
+  "nu": 45,
+  "q": 0,
+  "resources": {
+    "address_space_limits_bytes": [
+      536870912,
+      536870912
+    ],
+    "cpu_affinity": [
+      0
+    ],
+    "cpu_limits_seconds": [
+      120,
+      120
+    ],
+    "max_rss_KiB": 17760,
+    "system_cpu_seconds": 0.11135099999999999,
+    "user_cpu_seconds": 0.095187,
+    "wall_seconds": 0.05740266598877497
+  },
+  "schema": "RS42-INDEPENDENT-GRAPH-DELETION-v1",
+  "source_sha256": "0ec97a7aa5a064dfc45c82e640b2d61d5d65b4aeaf72a27d4949446aa9840f9d",
+  "statistics": {
+    "component_factorizations": 17,
+    "memoization": {
+      "currsize": 130,
+      "hits": 143,
+      "maxsize": null,
+      "misses": 130
+    },
+    "vertex_deletion_splits": 51
+  },
+  "vertex_cover": [
+    0,
+    2,
+    4,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    18,
+    20,
+    22,
+    24,
+    26,
+    28,
+    30,
+    32,
+    34,
+    36,
+    38,
+    40,
+    43,
+    45,
+    47,
+    49,
+    51,
+    53,
+    54,
+    56,
+    58,
+    60,
+    62,
+    64,
+    66,
+    68,
+    70,
+    72,
+    74,
+    76,
+    79,
+    81,
+    83,
+    85,
+    87,
+    89
+  ]
+}

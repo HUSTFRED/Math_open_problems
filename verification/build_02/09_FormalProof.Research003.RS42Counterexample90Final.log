@@ -1,0 +1,44 @@
+FormalProof.Research003.RS42Counterexample90.graph90 : SimpleGraph (Fin 90)
+FormalProof.Research003.RS42Counterexample90.graph90_adj_iff_fixedEdges (v w : Fin 90) :
+  graph90.Adj v w ↔ (↑v, ↑w) ∈ fixedEdges90 ∨ (↑w, ↑v) ∈ fixedEdges90
+FormalProof.Research003.RS42Counterexample90.fixed_indices :
+  Fintype.card (Fin 90) = 90 ∧ 90 / 2 = 45 ∧ 1 ≤ 44 ∧ 44 + 1 = 90 / 2 ∧ 44 - 1 = 43 ∧ 44 + 1 = 45 ∧ 90 / 2 + 1 + 1 = 47
+FormalProof.Research003.RS42Counterexample90.graph90_counterexample :
+  graph90.IsTree ∧
+    graph90.indepNum = 45 ∧
+      independenceCount graph90 44 ^ 2 < independenceCount graph90 43 * independenceCount graph90 45 ∧
+        ¬47 ≤ graph90.indepNum
+FormalProof.Research003.RS42Counterexample90.exists_counterexample90 :
+  ∃ T,
+    T.IsTree ∧
+      T.indepNum = 45 ∧
+        Nat.card { s // T.IsNIndepSet 44 s } ^ 2 <
+            Nat.card { s // T.IsNIndepSet 43 s } * Nat.card { s // T.IsNIndepSet 45 s } ∧
+          ¬47 ≤ T.indepNum
+FormalProof.Research003.RS42Counterexample90.not_RamosSun42EvenBetaOne90 : ¬RamosSun42EvenBetaOne90
+FormalProof.Research003.RS42Counterexample90.not_RamosSun42Explicit : ¬RamosSun42Explicit
+'FormalProof.Research003.RS42Counterexample90.graph90_adj_iff_fixedEdges' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_isTree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_indepNum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.matching90_isPerfectMatching' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_actual_coefficients' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.graph90_counterexample' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.exists_counterexample90' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.not_RamosSun42EvenBetaOne90' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FormalProof.Research003.RS42Counterexample90.not_RamosSun42Explicit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

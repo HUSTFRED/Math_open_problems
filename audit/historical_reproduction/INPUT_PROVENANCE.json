@@ -1,0 +1,15 @@
+{
+  "prepared_by": "route-A independent checker",
+  "source_path": "/home/heshunfan/projects/Danus/runtime/projects/research_003/checks/general_rs42_20261004/RS42_CANDIDATE_p6.json",
+  "source_sha256_after_run": "49454bcda4537d8ee28f418cbc32786b90c1877eca27f06bb060dc62688d4867",
+  "selected_source_fields": [
+    "N",
+    "edges"
+  ],
+  "numerical_source_fields_used_as_checker_input": [],
+  "extraction_command": "jq '{N,edges}' checks/general_rs42_20261004/RS42_CANDIDATE_p6.json > tree90_edges.json",
+  "N": 90,
+  "edge_count": 89,
+  "json_and_text_edge_lists_identical": true,
+  "recorded_utc": "2026-10-04T08:36:14.268351+00:00"
+}
