@@ -1,8 +1,0 @@
-{
-  "utc": "2026-10-04T10:38:12.595652+00:00",
-  "operation": "Literal source/JSON transcription identity only; graph semantics proved in Lean",
-  "edge_count": 89,
-  "ordered_pairs_identical": true,
-  "source_sha256": "8449a331fc793e36e0b0619511fa2bfd6ea110119e66afed1c3a988460736262",
-  "json_sha256": "583ff666066c9a42fcf0757d8412e7a86b8696f3ea8732eecb69573c4340f12b"
-}

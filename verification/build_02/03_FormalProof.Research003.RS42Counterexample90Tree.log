@@ -1,4 +1,0 @@
-'FormalProof.Research003.RS42Counterexample90.graph90_isTree' depends on axioms: [propext, Classical.choice, Quot.sound]
-'FormalProof.Research003.RS42Counterexample90.graph90_adj_iff_fixedEdges' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
